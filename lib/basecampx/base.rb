@@ -1,4 +1,8 @@
 module Basecampx
+
+  class BasecampError < StandardError
+  end
+
   class << self
     def use! project=:default
       @project = project
@@ -116,9 +120,9 @@ module Basecampx
       elsif response.code == 204
         true
       elsif response.code == 404
-        raise Exception, "API can't find specified URL #{response.request.path}"
+        raise BasecampError, "API can't find specified URL #{response.request.path}"
       else
-        raise Exception, response
+        raise BasecampError, response
       end
     end
 
